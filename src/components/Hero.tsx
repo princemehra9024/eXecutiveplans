@@ -2,8 +2,6 @@ import { useEffect, useState } from 'react';
 import { motion, useMotionValue, useSpring } from 'motion/react';
 import logoImg from '../assets/executive-logo.png';
 import Modal from '../components/Modal';
-import lightLineart from '../assets/hero_illustration_light_v2.png';
-import darkLineart from '../assets/hero_illustration_dark_v2.png';
 
 export default function Hero() {
   const mouseX = useMotionValue(0);
@@ -143,26 +141,7 @@ export default function Hero() {
           Websites, Apps, and Marketing that don't suck. We translate your chaotic vision into digital reality.
         </motion.p>
 
-        {/* Minimalist Line Art Illustration */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1.2, delay: 1.2, ease: [0.16, 1, 0.3, 1] }}
-          className="mt-16 md:mt-24 w-full max-w-4xl px-6 relative pointer-events-none flex justify-center"
-        >
-          {/* Light Theme Illustration (Black lines) */}
-          <img 
-            src={lightLineart} 
-            alt="Executive Workspace Line Art" 
-            className="w-full max-w-3xl h-auto object-contain dark:hidden"
-          />
-          {/* Dark Theme Illustration (White lines) */}
-          <img 
-            src={darkLineart} 
-            alt="Executive Workspace Line Art" 
-            className="w-full max-w-3xl h-auto object-contain hidden dark:block"
-          />
-        </motion.div>
+
       </div>
 
       <motion.div
