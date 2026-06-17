@@ -86,7 +86,7 @@ function ProjectModal({ project, onClose }: { project: typeof allProjects[0]; on
             </div>
           )}
 
-          {state !== 'error' ? (
+          {state !== 'error' && project.url !== '#' ? (
             <iframe
               src={project.url} title={project.displayUrl}
               className="w-full flex-1 border-none transition-opacity duration-500"
@@ -102,11 +102,18 @@ function ProjectModal({ project, onClose }: { project: typeof allProjects[0]; on
                    style={{ border: `1px solid ${project.accent}33` }} />
               <h3 className="text-2xl font-bold mb-2 text-white relative z-10" style={{ fontFamily: 'var(--font-display)' }}>{project.title}</h3>
               <p className="text-white/45 mb-6 relative z-10 max-w-sm text-sm">{project.desc}</p>
-              <a href={project.url} target="_blank" rel="noopener noreferrer"
-                 className="relative z-10 px-6 py-3 rounded-full font-bold text-white flex items-center gap-2 transition-transform hover:scale-105 text-sm"
-                 style={{ background: project.accent, boxShadow: `0 8px 28px -8px ${project.accent}` }}>
-                Open Live Site <ArrowUpRight size={16} />
-              </a>
+              {project.url !== '#' ? (
+                <a href={project.url} target="_blank" rel="noopener noreferrer"
+                   className="relative z-10 px-6 py-3 rounded-full font-bold text-white flex items-center gap-2 transition-transform hover:scale-105 text-sm"
+                   style={{ background: project.accent, boxShadow: `0 8px 28px -8px ${project.accent}` }}>
+                  Open Live Site <ArrowUpRight size={16} />
+                </a>
+              ) : (
+                <span className="relative z-10 px-6 py-3 rounded-full font-bold text-white/50 flex items-center gap-2 text-sm"
+                      style={{ background: '#333' }}>
+                  Coming Soon
+                </span>
+              )}
             </div>
           )}
         </motion.div>

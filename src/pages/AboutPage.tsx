@@ -98,8 +98,15 @@ const DEVELOPERS: Developer[] = [
 function DeveloperCard({ dev, variant = 'default' }: { dev: Developer; variant?: 'tall' | 'wide' | 'default' }) {
   const [activeTab, setActiveTab] = useState<'stack' | 'stats'>('stack');
   const [imageLoaded, setImageLoaded] = useState(false);
+  const imgRef = useRef<HTMLImageElement>(null);
   const x = useMotionValue(0);
   const y = useMotionValue(0);
+
+  React.useEffect(() => {
+    if (imgRef.current?.complete) {
+      setImageLoaded(true);
+    }
+  }, []);
 
   // Smooth springs for 3D rotate - made highly damped & subtle (max 5 degrees)
   const rotateX = useSpring(useTransform(y, [-0.5, 0.5], [5, -5]), { damping: 45, stiffness: 80 });
@@ -167,6 +174,7 @@ function DeveloperCard({ dev, variant = 'default' }: { dev: Developer; variant?:
         <div className={`absolute inset-0 bg-border/20 animate-pulse transition-opacity duration-700 z-0 ${imageLoaded ? 'opacity-0' : 'opacity-100'}`} />
 
         <img
+          ref={imgRef}
           src={dev.img}
           alt={dev.name}
           onLoad={() => setImageLoaded(true)}

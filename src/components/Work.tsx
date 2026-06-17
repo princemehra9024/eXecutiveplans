@@ -47,9 +47,11 @@ function ProjectModal({ project, onClose }: { project: typeof projects[0]; onClo
             <div className="flex-1 flex items-center gap-2 px-3 py-1.5 rounded-md text-xs font-mono"
                  style={{ background: 'rgba(0,0,0,0.5)', border: '1px solid #ffffff0a', color: 'rgba(255,255,255,0.45)' }}>
               <Globe size={11} /> <span>{project.displayUrl}</span>
-              <a href={project.url} target="_blank" rel="noopener noreferrer" className="ml-auto hover:text-white transition-colors">
-                <ExternalLink size={11} />
-              </a>
+              {project.url !== '#' && (
+                <a href={project.url} target="_blank" rel="noopener noreferrer" className="ml-auto hover:text-white transition-colors">
+                  <ExternalLink size={11} />
+                </a>
+              )}
             </div>
             <button className="w-8 h-8 rounded-full flex items-center justify-center transition-all hover:bg-white/10"
                     style={{ border: '1px solid #ffffff14', color: 'rgba(255,255,255,0.5)' }}
@@ -65,7 +67,7 @@ function ProjectModal({ project, onClose }: { project: typeof projects[0]; onClo
             </div>
           )}
 
-          {state !== 'error' ? (
+          {state !== 'error' && project.url !== '#' ? (
             <iframe
               src={project.url} title={project.displayUrl}
               className="w-full flex-1 border-none transition-opacity duration-500"
@@ -81,11 +83,18 @@ function ProjectModal({ project, onClose }: { project: typeof projects[0]; onClo
                    style={{ border: `1px solid ${project.accent}33` }} />
               <h3 className="text-2xl font-bold mb-2 text-white relative z-10" style={{ fontFamily: 'var(--font-display)' }}>{project.title}</h3>
               <p className="text-white/45 mb-6 relative z-10 max-w-sm text-sm">{project.desc}</p>
-              <a href={project.url} target="_blank" rel="noopener noreferrer"
-                 className="relative z-10 px-6 py-3 rounded-full font-bold text-white flex items-center gap-2 transition-transform hover:scale-105 text-sm"
-                 style={{ background: project.accent, boxShadow: `0 8px 28px -8px ${project.accent}` }}>
-                Open Live Site <ArrowUpRight size={16} />
-              </a>
+              {project.url !== '#' ? (
+                <a href={project.url} target="_blank" rel="noopener noreferrer"
+                   className="relative z-10 px-6 py-3 rounded-full font-bold text-white flex items-center gap-2 transition-transform hover:scale-105 text-sm"
+                   style={{ background: project.accent, boxShadow: `0 8px 28px -8px ${project.accent}` }}>
+                  Open Live Site <ArrowUpRight size={16} />
+                </a>
+              ) : (
+                <span className="relative z-10 px-6 py-3 rounded-full font-bold text-white/50 flex items-center gap-2 text-sm"
+                      style={{ background: '#333' }}>
+                  Coming Soon
+                </span>
+              )}
             </div>
           )}
         </motion.div>
@@ -218,16 +227,25 @@ export default function Work() {
                         ))}
                       </div>
                       
-                      <a 
-                        href={p.url} 
-                        target="_blank" 
-                        rel="noopener noreferrer" 
-                        className="relative overflow-hidden flex items-center justify-center w-12 h-12 rounded-full border border-transparent transition-all duration-500 hover:scale-110 hover:-translate-y-1 group/link"
-                        style={{ background: p.accent, color: '#fff', boxShadow: `0 8px 24px -8px ${p.accent}` }}
-                      >
-                        <span className="absolute inset-0 opacity-0 group-hover/link:opacity-100 transition-opacity duration-500 mix-blend-overlay bg-white/20" />
-                        <ArrowUpRight size={18} strokeWidth={2} className="relative z-10 transition-all duration-500 group-hover/link:rotate-45 group-hover/link:scale-110" />
-                      </a>
+                      {p.url !== '#' ? (
+                        <a 
+                          href={p.url} 
+                          target="_blank" 
+                          rel="noopener noreferrer" 
+                          className="relative overflow-hidden flex items-center justify-center w-12 h-12 rounded-full border border-transparent transition-all duration-500 hover:scale-110 hover:-translate-y-1 group/link"
+                          style={{ background: p.accent, color: '#fff', boxShadow: `0 8px 24px -8px ${p.accent}` }}
+                        >
+                          <span className="absolute inset-0 opacity-0 group-hover/link:opacity-100 transition-opacity duration-500 mix-blend-overlay bg-white/20" />
+                          <ArrowUpRight size={18} strokeWidth={2} className="relative z-10 transition-all duration-500 group-hover/link:rotate-45 group-hover/link:scale-110" />
+                        </a>
+                      ) : (
+                        <span 
+                          className="relative flex items-center justify-center w-12 h-12 rounded-full border border-transparent"
+                          style={{ background: 'rgba(255,255,255,0.1)', color: 'rgba(255,255,255,0.3)' }}
+                        >
+                          <ArrowUpRight size={18} strokeWidth={2} />
+                        </span>
+                      )}
                     </div>
                   </div>
                 </div>
