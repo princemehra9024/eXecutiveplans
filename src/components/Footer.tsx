@@ -54,13 +54,15 @@ export default function Footer() {
               animate={visible ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.8, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
             >
-              <h2 className="font-display font-black leading-[0.85] tracking-tighter mb-10"
-                  style={{ fontSize: 'clamp(4.5rem, 12vw, 9rem)', color: 'var(--bg-primary)' }}>
-                LET'S<br />
-                <span style={{ WebkitTextStroke: '2px var(--bg-primary)', color: 'transparent' }}>
-                  TALK
-                </span>
-              </h2>
+              <Link to="/contact">
+                <h2 className="font-display font-black leading-[0.85] tracking-tighter mb-10 transition-opacity hover:opacity-80"
+                    style={{ fontSize: 'clamp(4.5rem, 12vw, 9rem)', color: 'var(--bg-primary)', cursor: 'pointer' }}>
+                  LET'S<br />
+                  <span style={{ WebkitTextStroke: '2px var(--bg-primary)', color: 'transparent' }}>
+                    TALK
+                  </span>
+                </h2>
+              </Link>
             </motion.div>
 
             <motion.p
@@ -103,7 +105,7 @@ export default function Footer() {
           <div className="w-full lg:w-auto flex flex-col gap-16 lg:min-w-[400px]">
             {/* Direct Email Link */}
             <motion.a
-              href="mailto:hello@executiveplans.com"
+              href="mailto:executiveplans.in@gmail.com"
               initial={{ opacity: 0, x: 20 }}
               animate={visible ? { opacity: 1, x: 0 } : {}}
               transition={{ duration: 0.6, delay: 0.2 }}
@@ -116,7 +118,7 @@ export default function Footer() {
               <div className="flex items-center justify-between">
                 <span className="font-body text-xl md:text-3xl font-bold tracking-tight transition-colors duration-300"
                       style={{ color: 'var(--bg-primary)' }}>
-                  hello@executiveplans.com
+                  executiveplans.in@gmail.com
                 </span>
                 <div className="w-12 h-12 rounded-full flex items-center justify-center overflow-hidden relative transition-colors duration-300 group-hover:scale-110"
                      style={{ border: '1.5px solid var(--bg-primary)' }}>

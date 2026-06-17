@@ -1,12 +1,30 @@
 import { useRef, useState, useEffect } from 'react';
 import { motion, useScroll, useTransform, AnimatePresence } from 'motion/react';
-import { ArrowUpRight, Globe, ExternalLink, X, Eye } from 'lucide-react';
+import { ArrowUpRight, Globe, ExternalLink, X, Eye, ChevronDown } from 'lucide-react';
 
 import { projectsData as allProjects } from '../data/projectsData';
 
-
-
 import { Link } from 'react-router-dom';
+import SEO from '../components/SEO';
+
+const seoFaqs = [
+  {
+    question: "What types of digital projects do you specialize in?",
+    answer: "We specialize in crafting high-end, bespoke websites, progressive web applications, and immersive digital experiences. Our portfolio spans various industries including fintech, healthcare, enterprise software, and creative portfolios."
+  },
+  {
+    question: "How do you ensure the websites you build are SEO-friendly?",
+    answer: "SEO is integrated directly into our core development process. We use semantic HTML, optimize asset delivery for blazing fast load times, and implement server-side rendering or static site generation where appropriate. We also ensure your site structure and metadata follow all current best practices."
+  },
+  {
+    question: "What is your typical project timeline?",
+    answer: "Most of our comprehensive web projects take between 4 to 12 weeks from initial discovery to final launch. However, highly customized enterprise applications or complex 3D web experiences may require additional time to ensure our standard of quality."
+  },
+  {
+    question: "Do you offer ongoing support and maintenance after launch?",
+    answer: "Yes, we offer flexible retainer packages for continuous improvement, security updates, and performance monitoring. Your digital presence is an ongoing investment, and we're here to ensure it scales seamlessly with your business."
+  }
+];
 
 /* ─── FULLSCREEN MODAL ───────────────────────────────────────────── */
 function ProjectModal({ project, onClose }: { project: typeof allProjects[0]; onClose: () => void }) {
@@ -98,7 +116,7 @@ function ProjectModal({ project, onClose }: { project: typeof allProjects[0]; on
 }
 
 /* ─── PARALLAX PROJECT CARD ─────────────────────────────────────── */
-function ParallaxProject({ project, onClick }: { project: typeof allProjects[0]; onClick: () => void }) {
+function ParallaxProject({ project, onClick }: { key?: string | number; project: typeof allProjects[0]; onClick: () => void }) {
   const ref = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({ target: ref, offset: ['start end', 'end start'] });
   const yImage = useTransform(scrollYProgress, [0, 1], ['-12%', '12%']);
@@ -280,10 +298,18 @@ function ParallaxProject({ project, onClick }: { project: typeof allProjects[0];
 /* ─── MAIN ───────────────────────────────────────────────────────── */
 export default function ProjectsPage() {
   const [modalProject, setModalProject] = useState<typeof allProjects[0] | null>(null);
+  const [faqOpen, setFaqOpen] = useState<Record<number, boolean>>({});
+
+  const toggleFaq = (index: number) => {
+    setFaqOpen(prev => ({ ...prev, [index]: !prev[index] }));
+  };
 
   return (
     <div className="min-h-screen pt-24 pb-24" style={{ background: 'var(--bg-primary)' }}>
-
+      <SEO 
+        title="Our Work | Executive Plans" 
+        description="Explore our portfolio of bespoke websites, progressive web apps, and immersive digital experiences." 
+      />
       {/* ══ HERO ══ */}
       <section className="relative px-6 md:px-12 max-w-[1700px] mx-auto min-h-[65vh] flex flex-col justify-center mb-10 md:mb-20 pt-24">
         <motion.div
@@ -385,6 +411,59 @@ export default function ProjectsPage() {
         {allProjects.map((project, idx) => (
           <ParallaxProject key={project.id} project={project} onClick={() => setModalProject(project)} />
         ))}
+      </section>
+
+      {/* ══ SEO ACCORDION FAQs ══ */}
+      <section className="px-6 md:px-12 max-w-[1000px] mx-auto mt-24">
+        <h2 className="font-display text-4xl uppercase tracking-tight mb-12 border-b pb-6" style={{ color: 'var(--text-primary)', borderColor: 'var(--border-color)' }}>
+          Frequently Asked Questions
+        </h2>
+
+        <div className="flex flex-col gap-4">
+          {seoFaqs.map((faq, idx) => {
+            const isOpen = !!faqOpen[idx];
+            return (
+              <div 
+                key={idx} 
+                className="backdrop-blur-md rounded-2xl border overflow-hidden transition-all duration-300"
+                style={{ 
+                  background: 'rgba(255,255,255,0.02)',
+                  borderColor: isOpen ? 'rgba(255,255,255,0.2)' : 'var(--border-color)'
+                }}
+              >
+                <button 
+                  onClick={() => toggleFaq(idx)}
+                  className="w-full p-6 text-left flex justify-between items-center gap-6 font-display text-lg uppercase tracking-tight font-bold transition-colors"
+                  style={{ color: 'var(--text-primary)' }}
+                >
+                  <span>{faq.question}</span>
+                  <ChevronDown 
+                    className={`w-5 h-5 shrink-0 transition-transform duration-500 ${isOpen ? 'rotate-180' : ''}`} 
+                    style={{ color: 'var(--text-secondary)' }}
+                  />
+                </button>
+                
+                <AnimatePresence initial={false}>
+                  {isOpen && (
+                    <motion.div
+                      initial={{ height: 0, opacity: 0 }}
+                      animate={{ height: 'auto', opacity: 1 }}
+                      exit={{ height: 0, opacity: 0 }}
+                      transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
+                    >
+                      <div 
+                        className="p-6 pt-0 border-t font-body text-sm md:text-base leading-relaxed"
+                        style={{ borderColor: 'var(--border-color)', color: 'var(--text-secondary)' }}
+                      >
+                        {faq.answer}
+                      </div>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </div>
+            );
+          })}
+        </div>
       </section>
 
       {/* ══ BOTTOM CTA ══ */}

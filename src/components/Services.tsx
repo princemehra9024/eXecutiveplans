@@ -16,7 +16,7 @@ const services = [
   {
     id: "applications",
     num: "02",
-    title: "Applications",
+    title: "Custom App Solutions",
     subtitle: "Native & Cross-Platform",
     desc: "Complex, high-performance applications that your users will actually want to keep on their home screen.",
     Icon: Smartphone,
@@ -26,7 +26,7 @@ const services = [
   {
     id: "marketing",
     num: "03",
-    title: "Marketing",
+    title: "Content Creation Solutions",
     subtitle: "Data-driven Growth",
     desc: "Growth strategies tailored for the modern consumer. We don't just run ads, we engineer viral communities and SEO dominance.",
     Icon: BarChart3,

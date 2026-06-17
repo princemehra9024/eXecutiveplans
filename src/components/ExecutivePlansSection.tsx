@@ -39,6 +39,7 @@ function useWidth() {
 function Row({
   item, isActive, onHover, index, compact = false,
 }: {
+  key?: string | number;
   item: typeof ALL[0];
   isActive: boolean;
   onHover: () => void;

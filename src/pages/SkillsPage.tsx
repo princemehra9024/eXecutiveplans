@@ -4,6 +4,7 @@ import {
   ChevronLeft, ChevronRight, ArrowUpRight,
   Layers, Code2, Palette, Film, BarChart3, Box, Sparkles,
 } from 'lucide-react';
+import SEO from '../components/SEO';
 
 import imgUiUx     from '../assets/skill-uiux.png';
 import imgDev      from '../assets/skill-dev.png';
@@ -84,7 +85,7 @@ const skills = [
 /* ── Compact Skill Card ─────────────────────────────────────────────── */
 function SkillCard({
   skill, isActive, index, onClick,
-}: { skill: typeof skills[0]; isActive: boolean; index: number; onClick: () => void }) {
+}: { key?: string | number; skill: typeof skills[0]; isActive: boolean; index: number; onClick: () => void }) {
   const { Icon } = skill;
   return (
     <motion.button
@@ -263,6 +264,10 @@ export default function SkillsPage() {
         zIndex: 10,
       }}
     >
+      <SEO 
+        title="Our Capabilities | Executive Plans" 
+        description="Discover the elite technologies and skills we use to engineer bespoke digital products." 
+      />
       {/* ── Page wrapper: fills remaining height ── */}
       <div
         style={{

@@ -60,45 +60,45 @@ export const servicesData: Record<string, Service> = {
     desc: "Awwwards-winning digital experiences. Fast, accessible, and stunning. We build platforms that convert.",
     plans: [
       {
-        name: "Starter",
-        price: { INR: "₹1,99,999", USD: "$2,500" },
-        priceRaw: { INR: 199999, USD: 2500 },
+        name: "Starter Package",
+        price: { INR: "₹15,000 – ₹25,000", USD: "$160 – $265" },
+        priceRaw: { INR: 15000, USD: 160 },
         isCustom: false,
-        features: ["Custom Design", "Responsive Layout", "Basic SEO", "5 Pages", "1 Month Support"]
+        features: ["Up to 3 Pages Website", "Responsive Design (Mobile, Tablet & Desktop)", "Custom Business Website Design", "Contact Form Integration", "Basic SEO Setup", "WhatsApp Chat Integration", "Domain & Hosting Setup Assistance", "1 Month Free Support"]
       },
       {
-        name: "Professional",
-        price: { INR: "₹3,99,999", USD: "$5,000" },
-        priceRaw: { INR: 399999, USD: 5000 },
+        name: "Business Package",
+        price: { INR: "₹25,000 – ₹35,000", USD: "$265 – $370" },
+        priceRaw: { INR: 25000, USD: 265 },
         isCustom: false,
-        features: ["Advanced Animations", "CMS Integration", "E-commerce setup", "Performance Optimization", "3 Months Support"]
+        features: ["Up to 5 Pages Website", "Custom UI/UX Design", "Responsive Design", "Advanced SEO Setup", "Blog / News Section", "Speed & Performance Optimization", "WhatsApp & Contact Form Integration", "Google Maps Integration", "Domain & Hosting Setup Assistance", "2 Months Free Support"]
       },
       {
-        name: "Enterprise",
-        price: { INR: "Custom", USD: "Custom" },
-        priceRaw: { INR: 0, USD: 0 },
-        isCustom: true,
-        features: ["Full Web Application", "Custom Backend", "Ongoing Support", "Unlimited Revisions", "Dedicated Developer"]
+        name: "Executive Package",
+        price: { INR: "₹35,000 – ₹50,000+", USD: "$370 – $530+" },
+        priceRaw: { INR: 35000, USD: 370 },
+        isCustom: false,
+        features: ["Up to 10 Pages Website", "Premium UI/UX Design", "Advanced SEO Optimization", "Admin Panel", "Booking or Inquiry Management System", "Speed & Performance Optimization", "Advanced Security Features", "WhatsApp, Forms & API Integrations", "Domain & Hosting Setup Assistance", "Priority Support", "3 Months Free Support"]
       }
     ],
     addons: [
       {
         id: "pages",
         name: "Extra Pages (Pack of 5)",
-        price: { INR: "₹14,999", USD: "$200" },
-        priceRaw: { INR: 14999, USD: 200 }
+        price: { INR: "₹5,000", USD: "$60" },
+        priceRaw: { INR: 5000, USD: 60 }
       },
       {
         id: "support",
         name: "Priority Support (1 Year)",
-        price: { INR: "₹39,999", USD: "$500" },
-        priceRaw: { INR: 39999, USD: 500 }
+        price: { INR: "₹15,000", USD: "$180" },
+        priceRaw: { INR: 15000, USD: 180 }
       },
       {
         id: "seo",
         name: "Advanced SEO & Speed Tuning",
-        price: { INR: "₹24,999", USD: "$300" },
-        priceRaw: { INR: 24999, USD: 300 }
+        price: { INR: "₹8,000", USD: "$100" },
+        priceRaw: { INR: 8000, USD: 100 }
       }
     ],
     timeline: [
@@ -155,49 +155,83 @@ export const servicesData: Record<string, Service> = {
     ]
   },
   applications: {
-    title: "Applications",
+    title: "Custom App Solutions",
     desc: "Native and cross-platform apps that your users will actually want to keep on their home screen.",
     plans: [
       {
-        name: "MVP",
-        price: { INR: "₹6,49,999", USD: "$8,000" },
-        priceRaw: { INR: 649999, USD: 8000 },
+        name: "Starter Package",
+        price: { INR: "₹25,000 – ₹45,000", USD: "$265 – $475" },
+        priceRaw: { INR: 25000, USD: 265 },
         isCustom: false,
-        features: ["Core Feature Set", "Cross-Platform (React Native)", "Basic Backend", "App Store Submission", "2 Months Support"]
+        features: [
+          "Android App Development",
+          "Professional UI/UX Design",
+          "Up to 8 Screens",
+          "Contact & Inquiry Forms",
+          "Push Notifications",
+          "WhatsApp Integration",
+          "Play Store Publishing",
+          "Performance Optimization",
+          "2 Months Free Support"
+        ]
       },
       {
-        name: "Pro App",
-        price: { INR: "₹11,99,999", USD: "$15,000" },
-        priceRaw: { INR: 1199999, USD: 15000 },
+        name: "Business Package",
+        price: { INR: "₹45,000 – ₹65,000", USD: "$475 – $690" },
+        priceRaw: { INR: 45000, USD: 475 },
         isCustom: false,
-        features: ["Advanced Features", "Custom Animations", "Complex State Management", "Analytics Integration", "6 Months Support"]
+        features: [
+          "Android App Development",
+          "Up to 15 Screens",
+          "Premium UI/UX Design",
+          "User Authentication",
+          "Admin Dashboard",
+          "API Integration",
+          "Google Maps Integration",
+          "Customer Management",
+          "Performance Optimization",
+          "4 Months Free Support"
+        ]
       },
       {
-        name: "Scale",
-        price: { INR: "Custom", USD: "Custom" },
-        priceRaw: { INR: 0, USD: 0 },
-        isCustom: true,
-        features: ["Dedicated Team", "Cloud Infrastructure", "Machine Learning integrations", "24/7 SLA Support", "Unlimited Revisions"]
+        name: "Executive Package",
+        price: { INR: "₹80,000+", USD: "$850+" },
+        priceRaw: { INR: 80000, USD: 850 },
+        isCustom: false,
+        features: [
+          "Android & iOS Development",
+          "Unlimited Screens",
+          "Premium UI/UX Design",
+          "Advanced Admin Dashboard",
+          "Payment Gateway Integration",
+          "Real-Time Features",
+          "Booking Management System",
+          "CRM Integration",
+          "Advanced Security Features",
+          "Analytics Dashboard",
+          "Priority Support",
+          "6 Months Free Support"
+        ]
       }
     ],
     addons: [
       {
         id: "dual_platform",
         name: "Full Android + iOS Native Support",
-        price: { INR: "₹1,49,999", USD: "$2,000" },
-        priceRaw: { INR: 149999, USD: 2000 }
+        price: { INR: "₹15,000", USD: "$160" },
+        priceRaw: { INR: 15000, USD: 160 }
       },
       {
         id: "admin_panel",
         name: "Premium Admin Dashboard Panel",
-        price: { INR: "₹99,999", USD: "$1,200" },
-        priceRaw: { INR: 99999, USD: 1200 }
+        price: { INR: "₹10,000", USD: "$105" },
+        priceRaw: { INR: 10000, USD: 105 }
       },
       {
         id: "push_notifications",
         name: "Push Notifications & Complex Analytics",
-        price: { INR: "₹39,999", USD: "$500" },
-        priceRaw: { INR: 39999, USD: 500 }
+        price: { INR: "₹8,000", USD: "$85" },
+        priceRaw: { INR: 8000, USD: 85 }
       }
     ],
     timeline: [
@@ -254,50 +288,86 @@ export const servicesData: Record<string, Service> = {
     ]
   },
   marketing: {
-    title: "Marketing",
+    title: "Content Creation Solutions",
     desc: "Growth strategies tailored for the modern consumer. We don't just run ads, we build communities.",
     plans: [
       {
-        name: "Kickstart",
-        price: { INR: "₹1,24,999/mo", USD: "$1,500/mo" },
-        priceRaw: { INR: 124999, USD: 1500 },
+        name: "Starter Package",
+        price: { INR: "₹8,000 – ₹15,000", USD: "$85 – $160" },
+        priceRaw: { INR: 8000, USD: 85 },
         isCustom: false,
-        features: ["Social Media Management", "2 Ad Campaigns", "Basic Analytics", "Monthly Report", "Bi-weekly Call"]
+        features: [
+          "12 Professional Posts / Month",
+          "4 Reels / Month",
+          "Custom Graphic Design",
+          "Caption Writing",
+          "Basic Hashtag Research",
+          "Brand Consistent Design",
+          "Content Calendar",
+          "2 Revisions",
+          "Monthly Performance Report",
+          "1 Month Support"
+        ]
       },
       {
-        name: "Growth",
-        price: { INR: "₹2,89,999/mo", USD: "$3,500/mo" },
-        priceRaw: { INR: 289999, USD: 3500 },
+        name: "Business Package",
+        price: { INR: "₹15,000 – ₹25,000", USD: "$160 – $265" },
+        priceRaw: { INR: 15000, USD: 160 },
         isCustom: false,
-        features: ["Omnichannel Strategy", "Content Creation", "SEO Optimization", "Weekly Syncs", "Custom Analytics Dashboard"]
+        features: [
+          "20 Professional Posts / Month",
+          "8 Reels / Month",
+          "Custom Brand Designs",
+          "Advanced Caption Writing",
+          "Content Strategy Planning",
+          "Trend Research",
+          "Story Designs",
+          "Engagement Optimization",
+          "Monthly Analytics Report",
+          "Priority Revisions",
+          "2 Months Support"
+        ]
       },
       {
-        name: "Domination",
-        price: { INR: "₹6,59,999/mo", USD: "$8,000/mo" },
-        priceRaw: { INR: 659999, USD: 8000 },
+        name: "Executive Package",
+        price: { INR: "₹25,000 – ₹50,000+", USD: "$265 – $530+" },
+        priceRaw: { INR: 25000, USD: 265 },
         isCustom: false,
-        features: ["Full Fractional CMO", "Viral Campaigns", "Influencer Partnerships", "Daily Optimization", "24/7 Slack Support"]
+        features: [
+          "30+ Content Creatives / Month",
+          "12+ Reels / Month",
+          "Advanced Reel Editing",
+          "Content Strategy & Planning",
+          "Viral Trend Research",
+          "Custom Brand Designs",
+          "Story & Highlight Design",
+          "Competitor Analysis",
+          "Monthly Growth Analysis",
+          "Dedicated Content Manager",
+          "Priority Support",
+          "3 Months Support"
+        ]
       }
     ],
     addons: [
       {
         id: "channel",
         name: "Additional Social Media Channel",
-        price: { INR: "₹24,999/mo", USD: "$300/mo" },
-        priceRaw: { INR: 24999, USD: 300 },
+        price: { INR: "₹3,000/mo", USD: "$30/mo" },
+        priceRaw: { INR: 3000, USD: 30 },
         isMonthly: true
       },
       {
         id: "video",
         name: "Professional High-End Video Shoot",
-        price: { INR: "₹79,999", USD: "$1,000" },
-        priceRaw: { INR: 79999, USD: 1000 }
+        price: { INR: "₹10,000", USD: "$105" },
+        priceRaw: { INR: 10000, USD: 105 }
       },
       {
         id: "influencer",
         name: "Premium Influencer Outreach Setup",
-        price: { INR: "₹1,19,999", USD: "$1,500" },
-        priceRaw: { INR: 119999, USD: 1500 }
+        price: { INR: "₹15,000", USD: "$160" },
+        priceRaw: { INR: 15000, USD: 160 }
       }
     ],
     timeline: [

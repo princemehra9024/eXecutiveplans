@@ -3,7 +3,9 @@ import { motion, AnimatePresence } from 'motion/react';
 import { ArrowLeft, CheckCircle2, ChevronDown, Sparkles, Send, Calendar, DollarSign, RefreshCw } from 'lucide-react';
 import React, { useEffect, useState } from 'react';
 import FlowingRiver from '../components/FlowingRiver';
+import SEO from '../components/SEO';
 import { servicesData } from '../data/servicesData';
+import epLogo from '../assets/executive-logo copy.png';
 
 export default function ServiceDetail() {
   const { serviceId } = useParams<{ serviceId: string }>();
@@ -85,20 +87,43 @@ export default function ServiceDetail() {
     }));
   };
 
-  const handleFormSubmit = (e: React.FormEvent) => {
+  const handleFormSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    setFormSubmitted(true);
-    setTimeout(() => {
-      // Clear form after delay
-      setFormData({
-        name: '',
-        email: '',
-        phone: '',
-        projectDesc: '',
-        selectedPlan: service.plans[0]?.name || '',
-        timeline: '1-2 months'
+    
+    const submitData = new FormData(e.currentTarget);
+    submitData.append("access_key", "YOUR_ACCESS_KEY_HERE"); // TODO: Replace with your Web3Forms access key
+    submitData.append("service_name", service.title);
+
+    try {
+      const response = await fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        body: submitData
       });
-    }, 4000);
+      
+      const data = await response.json();
+      
+      if (data.success) {
+        setFormSubmitted(true);
+        setTimeout(() => {
+          // Clear form after delay
+          setFormData({
+            name: '',
+            email: '',
+            phone: '',
+            projectDesc: '',
+            selectedPlan: service.plans[0]?.name || '',
+            timeline: '1-2 months'
+          });
+          setFormSubmitted(false);
+        }, 4000);
+      } else {
+        console.error("Form submission failed", data);
+        alert("Failed to submit inquiry. Please try again.");
+      }
+    } catch (error) {
+      console.error(error);
+      alert("An error occurred. Please try again.");
+    }
   };
 
   const formattedTotalPrice = () => {
@@ -114,6 +139,10 @@ export default function ServiceDetail() {
 
   return (
     <div className="pt-32 pb-20 px-6 md:px-12 max-w-7xl mx-auto min-h-screen relative z-0">
+      <SEO 
+        title={`${service.title} | Executive Plans`} 
+        description={service.desc} 
+      />
       <FlowingRiver />
       <div className="relative z-10">
         
@@ -171,65 +200,250 @@ export default function ServiceDetail() {
           </div>
         </div>
 
-        {/* Pricing Cards */}
+        {/* ══════════════════════════════════════════════
+            PREMIUM PLANS SECTION — Dark Poster Layout
+            ══════════════════════════════════════════════ */}
         <div className="mb-32">
-          <h2 className="font-display text-4xl uppercase tracking-tight text-text mb-12 border-b border-border pb-6 flex items-center gap-3">
-            <Sparkles className="w-8 h-8 text-brand" /> Standard tiers & features
-          </h2>
-          
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {service.plans.map((plan, idx) => {
-              const active = activePlanIdx === idx;
-              return (
-                <div 
-                  key={idx} 
-                  onClick={() => {
-                    setActivePlanIdx(idx);
-                    setFormData(prev => ({ ...prev, selectedPlan: plan.name }));
-                  }}
-                  className={`bg-bg/80 backdrop-blur-md p-8 rounded-3xl border transition-all duration-500 flex flex-col h-full relative z-10 cursor-pointer group shadow-2xl shadow-black/5 hover:-translate-y-1.5 ${active ? 'border-brand ring-1 ring-brand bg-brand/5' : 'border-border hover:border-brand/40'}`}
-                >
-                  {active && (
-                    <div className="absolute -top-3 right-6 bg-brand text-brand-foreground font-body text-[10px] font-bold uppercase tracking-widest px-3 py-1.5 rounded-full shadow-md">
-                      Selected Plan
-                    </div>
-                  )}
-                  
-                  <div className="mb-8">
-                    <h4 className="font-display text-2xl uppercase tracking-tight text-text mb-2 group-hover:text-brand transition-colors">{plan.name}</h4>
-                    
-                    {/* Animate pricing switch smoothly */}
-                    <div className="h-10 flex items-baseline">
-                      <AnimatePresence mode="wait">
-                        <motion.span 
-                          key={currency + plan.price[currency]}
-                          initial={{ opacity: 0, y: -10 }}
-                          animate={{ opacity: 1, y: 0 }}
-                          exit={{ opacity: 0, y: 10 }}
-                          transition={{ duration: 0.3 }}
-                          className="font-body font-bold text-brand text-3xl"
-                        >
-                          {plan.price[currency]}
-                        </motion.span>
-                      </AnimatePresence>
-                    </div>
-                  </div>
-                  
-                  <ul className="flex flex-col gap-4 mb-8 flex-grow">
-                    {plan.features.map((feature, fIdx) => (
-                      <li key={fIdx} className="flex items-start gap-3 text-text-muted font-body text-sm leading-relaxed">
-                        <CheckCircle2 className="w-5 h-5 text-brand shrink-0 mt-0.5" />
-                        <span>{feature}</span>
-                      </li>
-                    ))}
-                  </ul>
+          <div
+            className="relative rounded-3xl overflow-hidden"
+            style={{ background: '#0a0a0a', border: '1px solid rgba(255,255,255,0.08)' }}
+          >
+            {/* ── Main body: vertical PLANS + content ── */}
+            <div className="flex min-h-[640px]">
 
-                  <button className={`w-full py-4 rounded-xl font-body uppercase tracking-widest text-xs transition-all mt-auto font-bold shadow-lg ${active ? 'bg-brand text-brand-foreground shadow-brand/20' : 'bg-text/5 text-text hover:bg-brand hover:text-brand-foreground shadow-black/5'}`}>
-                    {active ? 'Lock in Plan' : 'Select Plan'}
-                  </button>
+              {/* ── Left: Giant vertical PLANS text ── */}
+              <div
+                className="relative flex-shrink-0 flex items-center justify-center"
+                style={{ width: 'clamp(60px, 9vw, 120px)', borderRight: '1px solid rgba(255,255,255,0.07)' }}
+              >
+                <span
+                  style={{
+                    writingMode: 'vertical-rl',
+                    textOrientation: 'mixed',
+                    transform: 'rotate(180deg)',
+                    fontFamily: 'var(--font-display)',
+                    fontSize: 'clamp(4.5rem, 11vw, 10rem)',
+                    fontWeight: 900,
+                    color: 'white',
+                    letterSpacing: '-0.04em',
+                    lineHeight: 1,
+                    userSelect: 'none',
+                    textTransform: 'uppercase',
+                    textShadow: '0 0 60px rgba(255,255,255,0.08)',
+                    opacity: 0.82,
+                  }}
+                >
+                  PLANS
+                </span>
+              </div>
+
+              {/* ── Right: Logo + Cards ── */}
+              <div className="flex-1 flex flex-col py-10 px-6 md:px-10">
+
+                {/* EP Logo */}
+                <div className="flex justify-center mb-8">
+                  <img 
+                    src={epLogo} 
+                    alt="Executive Plans" 
+                    className="h-[140px] md:h-[180px] object-contain" 
+                    style={{ filter: 'drop-shadow(0 0 30px rgba(255,255,255,0.15))' }} 
+                  />
                 </div>
-              );
-            })}
+
+                {/* ── Three Pricing Cards ── */}
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-5 flex-1">
+                  {service.plans.map((plan, idx) => {
+                    const active = activePlanIdx === idx;
+                    const ctaLabels = ['GET STARTED', 'GROW YOUR BUSINESS', 'GO EXECUTIVE'];
+                    return (
+                      <motion.div
+                        key={idx}
+                        onClick={() => {
+                          setActivePlanIdx(idx);
+                          setFormData(prev => ({ ...prev, selectedPlan: plan.name }));
+                        }}
+                        whileHover={{ y: -4, scale: 1.015 }}
+                        transition={{ type: 'spring', stiffness: 200, damping: 22 }}
+                        className="relative flex flex-col cursor-pointer"
+                        style={{
+                          borderRadius: '12px',
+                          border: active
+                            ? '2px solid rgba(255,255,255,0.85)'
+                            : '1px solid rgba(255,255,255,0.22)',
+                          background: active
+                            ? 'rgba(255,255,255,0.05)'
+                            : 'rgba(255,255,255,0.02)',
+                          overflow: 'hidden',
+                          boxShadow: active
+                            ? '0 0 40px rgba(255,255,255,0.08), inset 0 0 0 1px rgba(255,255,255,0.1)'
+                            : 'none',
+                        }}
+                      >
+                        {/* ── Brush-stroke Package Name Header ── */}
+                        <div
+                          style={{
+                            background: 'white',
+                            padding: '10px 16px 10px',
+                            margin: '12px 12px 0',
+                            borderRadius: '6px',
+                            position: 'relative',
+                            clipPath: 'polygon(0% 5%, 2% 0%, 98% 2%, 100% 0%, 100% 95%, 97% 100%, 3% 98%, 0% 100%)',
+                          }}
+                        >
+                          <h4
+                            style={{
+                              fontFamily: 'var(--font-display)',
+                              fontSize: 'clamp(0.7rem, 1.5vw, 0.85rem)',
+                              fontWeight: 900,
+                              color: '#000',
+                              letterSpacing: '0.12em',
+                              textTransform: 'uppercase',
+                              textAlign: 'center',
+                              margin: 0,
+                            }}
+                          >
+                            {plan.name}
+                          </h4>
+                        </div>
+
+                        {/* ── Price ── */}
+                        <div className="px-5 pt-5 pb-2">
+                          <AnimatePresence mode="wait">
+                            <motion.div
+                              key={currency + plan.price[currency]}
+                              initial={{ opacity: 0, y: -8 }}
+                              animate={{ opacity: 1, y: 0 }}
+                              exit={{ opacity: 0, y: 8 }}
+                              transition={{ duration: 0.25 }}
+                            >
+                              <span
+                                style={{
+                                  fontFamily: 'var(--font-display)',
+                                  fontSize: 'clamp(1.25rem, 3vw, 1.75rem)',
+                                  fontWeight: 800,
+                                  color: 'white',
+                                  letterSpacing: '-0.02em',
+                                  lineHeight: 1.1,
+                                  display: 'block',
+                                }}
+                              >
+                                {plan.price[currency]}
+                              </span>
+                            </motion.div>
+                          </AnimatePresence>
+                          {/* Divider dot */}
+                          <div style={{ display: 'flex', alignItems: 'center', gap: '6px', marginTop: '8px', marginBottom: '4px' }}>
+                            <div style={{ height: '1px', flex: 1, background: 'rgba(255,255,255,0.15)' }} />
+                            <div style={{ width: '4px', height: '4px', borderRadius: '50%', background: 'rgba(255,255,255,0.4)' }} />
+                            <div style={{ height: '1px', flex: 1, background: 'rgba(255,255,255,0.15)' }} />
+                          </div>
+                        </div>
+
+                        {/* ── Features ── */}
+                        <ul className="flex flex-col gap-2.5 px-5 pb-4 flex-grow">
+                          {plan.features.map((feature, fIdx) => (
+                            <li
+                              key={fIdx}
+                              style={{
+                                display: 'flex',
+                                alignItems: 'flex-start',
+                                gap: '8px',
+                                fontFamily: 'var(--font-body)',
+                                fontSize: 'clamp(0.7rem, 1.3vw, 0.8rem)',
+                                color: 'rgba(255,255,255,0.82)',
+                                lineHeight: 1.4,
+                              }}
+                            >
+                              {/* Filled checkmark circle */}
+                              <svg
+                                width="15"
+                                height="15"
+                                viewBox="0 0 16 16"
+                                fill="none"
+                                style={{ flexShrink: 0, marginTop: '1px' }}
+                              >
+                                <circle cx="8" cy="8" r="7.5" stroke="rgba(255,255,255,0.6)" strokeWidth="1" fill="none"/>
+                                <path d="M5 8.2L7 10.2L11 6" stroke="white" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+                              </svg>
+                              <span>{feature}</span>
+                            </li>
+                          ))}
+                        </ul>
+
+                        {/* ── CTA Button ── */}
+                        <div className="px-5 pb-5 mt-auto">
+                          <button
+                            style={{
+                              width: '100%',
+                              padding: '11px 16px',
+                              borderRadius: '6px',
+                              border: '1.5px solid white',
+                              background: active ? 'white' : 'transparent',
+                              color: active ? '#000' : 'white',
+                              fontFamily: 'var(--font-body)',
+                              fontSize: '0.72rem',
+                              fontWeight: 800,
+                              letterSpacing: '0.14em',
+                              textTransform: 'uppercase',
+                              cursor: 'pointer',
+                              transition: 'all 0.25s ease',
+                            }}
+                            onMouseEnter={e => {
+                              if (!active) {
+                                (e.currentTarget as HTMLButtonElement).style.background = 'white';
+                                (e.currentTarget as HTMLButtonElement).style.color = '#000';
+                              }
+                            }}
+                            onMouseLeave={e => {
+                              if (!active) {
+                                (e.currentTarget as HTMLButtonElement).style.background = 'transparent';
+                                (e.currentTarget as HTMLButtonElement).style.color = 'white';
+                              }
+                            }}
+                          >
+                            {ctaLabels[idx] || 'SELECT PLAN'}
+                          </button>
+                        </div>
+                      </motion.div>
+                    );
+                  })}
+                </div>
+              </div>
+            </div>
+
+            {/* ── Footer Trust Bar ── */}
+            <div
+              style={{
+                borderTop: '1px solid rgba(255,255,255,0.12)',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                flexWrap: 'wrap',
+                gap: '0',
+                padding: '14px 24px',
+              }}
+            >
+              {['RESPONSIVE DESIGN', 'SEO FRIENDLY', 'FAST LOADING', 'SECURE & RELIABLE', 'DEDICATED SUPPORT'].map((item, i, arr) => (
+                <React.Fragment key={item}>
+                  <span
+                    style={{
+                      fontFamily: 'var(--font-body)',
+                      fontSize: '0.6rem',
+                      fontWeight: 600,
+                      letterSpacing: '0.18em',
+                      color: 'rgba(255,255,255,0.45)',
+                      textTransform: 'uppercase',
+                      padding: '0 16px',
+                    }}
+                  >
+                    {item}
+                  </span>
+                  {i < arr.length - 1 && (
+                    <span style={{ color: 'rgba(255,255,255,0.2)', fontSize: '0.8rem' }}>|</span>
+                  )}
+                </React.Fragment>
+              ))}
+            </div>
           </div>
         </div>
 
@@ -487,6 +701,7 @@ export default function ServiceDetail() {
                       <input 
                         type="text" 
                         id="name"
+                        name="name"
                         required
                         value={formData.name}
                         onChange={(e) => setFormData(prev => ({ ...prev, name: e.target.value }))}
@@ -502,6 +717,7 @@ export default function ServiceDetail() {
                       <input 
                         type="email" 
                         id="email"
+                        name="email"
                         required
                         value={formData.email}
                         onChange={(e) => setFormData(prev => ({ ...prev, email: e.target.value }))}
@@ -519,6 +735,7 @@ export default function ServiceDetail() {
                       <input 
                         type="tel" 
                         id="phone"
+                        name="phone"
                         required
                         value={formData.phone}
                         onChange={(e) => setFormData(prev => ({ ...prev, phone: e.target.value }))}
@@ -533,6 +750,7 @@ export default function ServiceDetail() {
                       </label>
                       <select 
                         id="plan"
+                        name="plan"
                         value={formData.selectedPlan}
                         onChange={(e) => {
                           const planName = e.target.value;
@@ -556,6 +774,7 @@ export default function ServiceDetail() {
                       </label>
                       <select 
                         id="timeline"
+                        name="timeline"
                         value={formData.timeline}
                         onChange={(e) => setFormData(prev => ({ ...prev, timeline: e.target.value }))}
                         className="bg-text/5 border border-border/80 p-4 rounded-xl font-body text-sm text-text focus:outline-none focus:border-brand/80 transition-colors cursor-pointer appearance-none"
@@ -573,6 +792,7 @@ export default function ServiceDetail() {
                     </label>
                     <textarea 
                       id="desc"
+                      name="message"
                       rows={4}
                       required
                       value={formData.projectDesc}

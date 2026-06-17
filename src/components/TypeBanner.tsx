@@ -1,4 +1,4 @@
-import { useRef, useEffect } from 'react';
+import React, { useRef, useEffect } from 'react';
 import { motion, useScroll, useTransform, useInView } from 'motion/react';
 
 /* ── tiny helper: split string into chars with staggered reveal ── */

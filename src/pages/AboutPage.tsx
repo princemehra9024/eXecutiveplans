@@ -16,6 +16,8 @@ import {
   ArrowUpRight,
   ArrowRight
 } from 'lucide-react';
+import WorkflowSlider from '../components/WorkflowSlider';
+import SEO from '../components/SEO';
 
 import princeImg from '../assets/prince.png';
 import anshuImg from '../assets/ash.jpg';
@@ -132,7 +134,7 @@ function DeveloperCard({ dev, variant = 'default' }: { dev: Developer; variant?:
         rotateY,
         transformStyle: 'preserve-3d',
       }}
-      className={`relative flex ${variant === 'wide' ? 'flex-col lg:flex-row' : 'flex-col'} w-full h-full bg-bg/50 backdrop-blur-md rounded-[32px] border border-border/60 overflow-hidden group shadow-md transition-colors duration-500 hover:border-brand/30 hover:bg-bg/80 cursor-pointer`}
+      className={`relative flex ${variant === 'wide' ? 'flex-col lg:flex-row' : 'flex-col'} w-full h-full glass-card rounded-[32px] overflow-hidden group transition-colors duration-500 hover:border-brand/30 cursor-pointer`}
     >
       {/* Glare Overlay - very subtle opacity */}
       <motion.div
@@ -436,6 +438,10 @@ export default function AboutPage() {
 
   return (
     <div className="min-h-screen pt-24 md:pt-32 lg:pt-40 pb-20 px-6 md:px-12 max-w-7xl mx-auto flex flex-col">
+      <SEO 
+        title="About Us | Executive Plans" 
+        description="We are architects of digital experiences. Meet our engineers and discover our methodology." 
+      />
       {/* Mesh gradients for modern background glow */}
       <motion.div
         style={{ y: backgroundY1 }}
@@ -457,7 +463,7 @@ export default function AboutPage() {
           OUR MANIFESTO
         </motion.div>
 
-        <h1 className="font-display text-4xl sm:text-6xl md:text-[6.5vw] xl:text-[80px] uppercase tracking-tighter leading-[1.0] md:leading-[0.85] text-text flex flex-wrap gap-x-[1.5vw] gap-y-2">
+        <h1 className="font-display text-4xl sm:text-6xl md:text-[6.5vw] xl:text-[80px] uppercase tracking-tighter leading-[1.0] md:leading-[0.85] text-text flex flex-wrap gap-x-[1.5vw] gap-y-2 relative z-10">
           {words.map((word, i) => (
             <div key={i} className="overflow-hidden inline-block h-auto">
               <motion.span
@@ -465,7 +471,7 @@ export default function AboutPage() {
                 variants={revealVariants}
                 initial="hidden"
                 animate="visible"
-                className="block"
+                className={`block ${i % 2 !== 0 ? 'text-stroke' : ''}`}
               >
                 {word}
               </motion.span>
@@ -493,9 +499,10 @@ export default function AboutPage() {
       >
         <motion.div
           variants={itemVariants}
-          className="bg-bg/40 border border-border/60 p-8 md:p-10 rounded-[32px] hover:border-brand/40 transition-all duration-300"
+          className="glass-card p-8 md:p-10 rounded-[32px] group relative"
         >
-          <div className="w-12 h-12 rounded-2xl bg-brand/10 text-brand flex items-center justify-center mb-8">
+          <div className="absolute -inset-20 bg-brand/5 blur-3xl rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none" />
+          <div className="w-12 h-12 rounded-2xl bg-brand/10 text-brand flex items-center justify-center mb-8 relative z-10">
             <Zap className="w-6 h-6" />
           </div>
           <h2 className="font-display text-2xl uppercase tracking-tight text-text mb-4">Methodology</h2>
@@ -506,9 +513,10 @@ export default function AboutPage() {
 
         <motion.div
           variants={itemVariants}
-          className="bg-bg/40 border border-border/60 p-8 md:p-10 rounded-[32px] hover:border-brand/40 transition-all duration-300"
+          className="glass-card p-8 md:p-10 rounded-[32px] group relative"
         >
-          <div className="w-12 h-12 rounded-2xl bg-brand/10 text-brand flex items-center justify-center mb-8">
+          <div className="absolute -inset-20 bg-brand/5 blur-3xl rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none" />
+          <div className="w-12 h-12 rounded-2xl bg-brand/10 text-brand flex items-center justify-center mb-8 relative z-10">
             <Terminal className="w-6 h-6" />
           </div>
           <h2 className="font-display text-2xl uppercase tracking-tight text-text mb-4">Obsession</h2>
@@ -519,9 +527,10 @@ export default function AboutPage() {
 
         <motion.div
           variants={itemVariants}
-          className="bg-bg/40 border border-border/60 p-8 md:p-10 rounded-[32px] hover:border-brand/40 transition-all duration-300"
+          className="glass-card p-8 md:p-10 rounded-[32px] group relative"
         >
-          <div className="w-12 h-12 rounded-2xl bg-brand/10 text-brand flex items-center justify-center mb-8">
+          <div className="absolute -inset-20 bg-brand/5 blur-3xl rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none" />
+          <div className="w-12 h-12 rounded-2xl bg-brand/10 text-brand flex items-center justify-center mb-8 relative z-10">
             <Layers className="w-6 h-6" />
           </div>
           <h2 className="font-display text-2xl uppercase tracking-tight text-text mb-4">Impact</h2>
@@ -530,6 +539,9 @@ export default function AboutPage() {
           </p>
         </motion.div>
       </motion.section>
+
+      {/* Workflow Process Slider */}
+      <WorkflowSlider />
 
       {/* Developer Grid Section */}
       <EngineerSection />
